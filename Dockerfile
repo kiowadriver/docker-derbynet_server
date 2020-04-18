@@ -21,7 +21,7 @@ RUN apt-get remove apache2 -y
 # map /etc/config to host defined config path (used to store configuration from app)
 RUN mkdir /etc/config
 RUN ln -s /etc/derbynet.conf /etc/config/
-VOLUME /etc/config
+VOLUME /config
 
 # expose port for http
 EXPOSE 8081
