@@ -1,9 +1,10 @@
 FROM ubuntu:18.04
 RUN apt-get update && apt-get install -y \
 	apt-transport-https \
+	apt-utils \
     	nano \
 	wget \
-	gnupg2 \
+	gnupg \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
  
@@ -15,7 +16,6 @@ RUN apt-get update && apt-get install -y \
 RUN wget -q -O- https://jeffpiazza.org/derbynet/debian/jeffpiazza_derbynet.gpg | apt-key add -
 RUN echo "deb [arch=all] https://jeffpiazza.org/derbynet/debian stable main" | tee /etc/apt/sources.list.d/derbynet.list > /dev/null
 RUN apt-get update && apt-get install derbynet-server -y
-RUN apt-get remove apache2 -y
 
 # docker settings
 #################
