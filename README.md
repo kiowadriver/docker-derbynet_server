@@ -1,2 +1,3 @@
 # docker-derbynet
-Cubscout Pinewood Derby cloud based race management tool created by Jeff Piazza @ Jeffpiazza.org/derbynet
+Unraid docker instance of the Cubscout Pinewood Derby cloud based race management tool created by Jeff Piazza
+http://jeffpiazza.github.io/derbynet/
