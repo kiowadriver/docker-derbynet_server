@@ -3,6 +3,7 @@ RUN apt-get update && apt-get install -y \
 	apt-transport-https \
 	apt-utils \
     	nano \
+	nginx \
 	wget \
 	gnupg \
  && apt-get clean \
