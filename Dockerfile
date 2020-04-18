@@ -7,23 +7,6 @@ RUN apt-get update && apt-get install -y \
  
 # additional files
 ##################
-# add supervisor conf file for app
-#ADD build/*.conf /etc/supervisor/conf.d/
-
-# add bash scripts to install app
-#ADD build/root/*.sh /root/
-
-# add bash script to setup iptables
-#ADD run/root/*.sh /root/
-
-# add bash script to run deluge
-#ADD run/nobody/*.sh /home/nobody/
-
-# add python script to configure deluge
-#ADD run/nobody/*.py /home/nobody/
-
-# add pre-configured config files for deluge
-#ADD config/nobody/ /home/nobody/
 
 # install app
 ############# 
@@ -32,12 +15,13 @@ RUN echo "deb [arch=all] https://jeffpiazza.org/derbynet/debian stable main" | s
 RUN apt-get update && apt-get install derbynet-server -y
 RUN apt-get remove apache2 -y
 
-
 # docker settings
 #################
 
-# map /config to host defined config path (used to store configuration from app)
-VOLUME /config
+# map /etc/config to host defined config path (used to store configuration from app)
+RUN mkdir /etc/config
+RUN ln -s /etc/derbynet.conf /etc/config/
+VOLUME /etc/config
 
 # expose port for http
 EXPOSE 8081
@@ -45,8 +29,6 @@ EXPOSE 8081
 # set permissions
 #################
 
-# run script to set uid, gid and permissions
-#CMD ["/bin/bash", "/usr/local/bin/init.sh"]
 
 	
 	
