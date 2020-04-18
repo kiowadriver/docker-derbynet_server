@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
 
 # install app
 ############# 
-RUN wget -q -O- https://jeffpiazza.org/derbynet/debian/jeffpiazza_derbynet.gpg | sudo apt-key add -
-RUN echo "deb [arch=all] https://jeffpiazza.org/derbynet/debian stable main" | sudo tee /etc/apt/sources.list.d/derbynet.list > /dev/null
+RUN wget -q -O- https://jeffpiazza.org/derbynet/debian/jeffpiazza_derbynet.gpg | apt-key add -
+RUN echo "deb [arch=all] https://jeffpiazza.org/derbynet/debian stable main" | tee /etc/apt/sources.list.d/derbynet.list > /dev/null
 RUN apt-get update && apt-get install derbynet-server -y
 RUN apt-get remove apache2 -y
 
