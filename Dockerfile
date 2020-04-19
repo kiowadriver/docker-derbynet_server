@@ -8,6 +8,7 @@ ARG APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 RUN echo exit 0 > /usr/sbin/policy-rc.d & \
         apt-get update && apt-get install -y \
         apt-utils \
+        supervisor \
         nano \
         software-properties-common \
         apt-transport-https \
@@ -29,13 +30,17 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d && \
  apt-get clean && \
  rm -rf /var/lib/apt/lists/* && \
  echo "daemon off;" >> /etc/nginx/nginx.conf
- 
+
+# Post Install 
+ADD ./root/install.sh /root/install.sh
+RUN chmod +x /root/install.sh && /root/install.sh
+
 # docker settings
 #################
 
 # map /etc/config to host defined config path (used to store configuration from app)
 VOLUME /config
-RUN ln -s /etc/derbynet.conf /config/
+#RUN ln -s /etc/derbynet.conf /config/
 
 # expose port for http and https
 EXPOSE 80
@@ -45,4 +50,7 @@ EXPOSE 443
 CMD ["apt-get update && apt-get install derbynet-server -y"]
 
 # start nginx service
-CMD ["service php7.0-fpm start && nginx"]
+#CMD ["service php7.0-fpm start && nginx"]
+
+COPY ./root/supervisord.conf /etc/supervisord.conf
+CMD ["/usr/bin/supervisord", "-n"]
