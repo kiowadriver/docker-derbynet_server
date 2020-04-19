@@ -29,7 +29,8 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d && \
  apt-get update && apt-get install derbynet-server -y && \
  apt-get clean && \
  rm -rf /var/lib/apt/lists/* && \
- echo "daemon off;" >> /etc/nginx/nginx.conf
+ echo "daemon off;" >> /etc/nginx/nginx.conf && \
+ echo "daemonize = no" >> /etc/php/7.2/fpm/php-fpm.conf
 
 # Post Install 
 ADD ./root/install.sh /root/install.sh
@@ -52,5 +53,6 @@ CMD ["apt-get update && apt-get install derbynet-server -y"]
 # start nginx service
 #CMD ["service php7.0-fpm start && nginx"]
 
-COPY ./root/supervisord.conf /etc/supervisord.conf
-CMD ["/usr/bin/supervisord", "-n"]
+COPY ./root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+#CMD ["/usr/bin/supervisord", "-c /etc/supervisor/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
