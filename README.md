@@ -13,8 +13,9 @@ DerbyNet is the new standard in race management software for Pinewood Derby even
 Docs:
 /usr/share/derbynet/docs
 
-Config:
+Config Locations:
 /etc/derbynet.conf
+/var/lib/derbynet/
 
 **Build notes**
 
@@ -23,10 +24,14 @@ Latest stable jeffpiazza release from GitHub.
 **Usage**
 ```
 docker run -d \
-    -p 80:8081 \
+    -p 80:8050 \
+    -p 443:8051 \
     --name=<container name> \
-    -v <path for config files>:/config \
+    -v <local path for config files>:/config \
     -v /etc/localtime:/etc/localtime:ro \
+    -e URL=<websiteurl> \
+    -e TIMER_USERNAME=<timer> \
+    -e TIMER_PASSWORD=<timerpassword> \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
     -e PGID=<gid for user> \
@@ -37,15 +42,18 @@ Please replace all user variables in the above command defined by <> with the co
 
 **Access application**
 
-`http://<host ip>:8081`
+`http://<host ip>:8050`
 
 **Example**
 ```
 docker run -d \
-    -p 80:8081 \
+    -p 80:8050 \
     --name=derbynet_server \
     -v /apps/docker/derbynet:/config \
     -v /etc/localtime:/etc/localtime:ro \
+    -e URL="http://mydomain/derbynet" \
+    -e TIMER_USERNAME="Timer" \
+    -e TIMER_PASSWORD="xxx" \
     -e UMASK=000 \
     -e PUID=0 \
     -e PGID=0 \
@@ -56,6 +64,7 @@ docker run -d \
 
 User ID (PUID) and Group ID (PGID) can be found by issuing the following command for the user you want to run the container as:-
 
+I would recommend using the letsencrypt docker to handle encryption and proxy for the port 80 of this docker rather than the self signed certs via the docker port 443
 ```
 id <username>
 ```
