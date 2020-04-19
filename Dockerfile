@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
 
 # install app
 ############# 
+RUN echo exit 0 > /usr/sbin/policy-rc.d
 RUN wget -q -O- https://jeffpiazza.org/derbynet/debian/jeffpiazza_derbynet.gpg | apt-key add -
 RUN echo "deb [arch=all] https://jeffpiazza.org/derbynet/debian stable main" | tee /etc/apt/sources.list.d/derbynet.list > /dev/null
 RUN apt-get update && apt-get install derbynet-server -y
