@@ -28,7 +28,8 @@ VOLUME /config
 RUN ln -s /etc/derbynet.conf /config/
 
 # expose port for http
-EXPOSE 8081
+EXPOSE 8070
+EXPOSE 8071
 
 # set permissions
 #################
