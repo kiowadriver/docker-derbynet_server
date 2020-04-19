@@ -8,6 +8,7 @@ ARG APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 RUN echo exit 0 > /usr/sbin/policy-rc.d & \
         apt-get update && apt-get install -y \
         apt-utils \
+        nano \
         software-properties-common \
         apt-transport-https \
         ca-certificates \
@@ -44,4 +45,4 @@ EXPOSE 443
 CMD ["apt-get update && apt-get install derbynet-server -y"]
 
 # start nginx service
-CMD ["nginx"]
+CMD ["service php7.0-fpm start && nginx"]
