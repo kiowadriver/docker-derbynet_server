@@ -29,9 +29,6 @@ docker run -d \
     --name=<container name> \
     -v <local path for config files>:/config \
     -v /etc/localtime:/etc/localtime:ro \
-    -e URL=<websiteurl> \
-    -e TIMER_USERNAME=<timer> \
-    -e TIMER_PASSWORD=<timerpassword> \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
     -e PGID=<gid for user> \
@@ -51,9 +48,6 @@ docker run -d \
     --name=derbynet_server \
     -v /apps/docker/derbynet:/config \
     -v /etc/localtime:/etc/localtime:ro \
-    -e URL="http://mydomain/derbynet" \
-    -e TIMER_USERNAME="Timer" \
-    -e TIMER_PASSWORD="xxx" \
     -e UMASK=000 \
     -e PUID=0 \
     -e PGID=0 \
