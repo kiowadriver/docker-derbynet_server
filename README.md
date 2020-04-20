@@ -24,8 +24,8 @@ Latest stable jeffpiazza release from GitHub.
 **Usage**
 ```
 docker run -d \
-    -p 80:8050 \
-    -p 443:8051 \
+    -p 8050:80 \
+    -p 8051:443 \
     --name=<container name> \
     -v <local path for config files>:/config \
     -v /etc/localtime:/etc/localtime:ro \
@@ -47,7 +47,7 @@ Please replace all user variables in the above command defined by <> with the co
 **Example**
 ```
 docker run -d \
-    -p 80:8050 \
+    -p 8050:80 \
     --name=derbynet_server \
     -v /apps/docker/derbynet:/config \
     -v /etc/localtime:/etc/localtime:ro \

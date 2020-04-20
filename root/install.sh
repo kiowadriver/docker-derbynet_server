@@ -1,9 +1,8 @@
 #! /bin/bash
 
-# direct derbynet database and media to the /config folder
-#ln -s /config /var/lib/derbynet/
+# items in the boot folder take priority. Copy all config files over so they can be saved/shared
+# -n = only copy if the file doesn't already exist
+cp -n /etc/derbynet*.conf /boot/
 
-# direct the derbynet configuration file to the /config folder
-#ln -s /etc/derbynet.conf /config/
 
 
