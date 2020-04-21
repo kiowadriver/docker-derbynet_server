@@ -18,9 +18,6 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d & \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
  
-# additional files
-##################
-
 # install app
 ############# 
 RUN wget -q -O- https://jeffpiazza.org/derbynet/debian/jeffpiazza_derbynet.gpg | apt-key add -
@@ -31,6 +28,10 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d && \
  rm -rf /var/lib/apt/lists/* && \
  echo "daemon off;" >> /etc/nginx/nginx.conf 
 
+# additional files
+##################
+# replace the nginx default file
+ADD ./root/nginxdefault /etc/nginx/sites-enabled/default
 
 # docker settings
 #################
