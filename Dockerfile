@@ -23,7 +23,7 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d & \
 RUN wget -q -O- https://jeffpiazza.org/derbynet/debian/jeffpiazza_derbynet.gpg | apt-key add -
 RUN echo "deb [arch=all] https://jeffpiazza.org/derbynet/debian stable main" | tee /etc/apt/sources.list.d/derbynet.list > /dev/null
 RUN echo exit 0 > /usr/sbin/policy-rc.d && \
- apt-get update && apt-get install derbynet-server derbynet-extras -y && \
+ apt-get update && apt-get install derbynet-server -y && \
  apt-get clean && \
  rm -rf /var/lib/apt/lists/* && \
  echo "daemon off;" >> /etc/nginx/nginx.conf 
@@ -32,6 +32,12 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d && \
 ##################
 # replace the nginx default file
 ADD ./root/nginxdefault /etc/nginx/sites-enabled/default
+
+# replace file to use docker env variables instead of hard-coded values
+ADD ./root/config-roles.inc /var/www/html/derbynet/local/config-roles.inc
+RUN chown www-data:www-data /var/www/html/derbynet/local/config-roles.inc
+RUN chmod 644 /var/www/html/derbynet/local/config-roles.inc
+
 
 # docker settings
 #################
