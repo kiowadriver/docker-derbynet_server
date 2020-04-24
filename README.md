@@ -22,13 +22,18 @@ Config Locations:
 Latest stable jeffpiazza release from GitHub.
 
 **Usage**
-```
+Make sure your client machines such as photo and timer utilize the same passwords set at run.
+
 docker run -d \
     -p 8050:80 \
     -p 8051:443 \
     --name=<container name> \
-    -v <local path for config files>:/config \
+    -v <local path for data files>:/var/lib/derbynet \
     -v /etc/localtime:/etc/localtime:ro \
+    -e TIMER_PASSWORD=<password> \
+    -e RACE_CREW_PASSWORD=<password> \
+    -e RACE_COORD_PASSWORD=<password> \
+    -e PHOTO_PASSWORD=<password> \
     -e UMASK=<umask for created files> \
     -e PUID=<uid for user> \
     -e PGID=<gid for user> \
@@ -42,12 +47,17 @@ Please replace all user variables in the above command defined by <> with the co
 `http://<host ip>:8050`
 
 **Example**
-```
+The following example employs the default passwords the clients are using:
+
 docker run -d \
     -p 8050:80 \
     --name=derbynet_server \
-    -v /apps/docker/derbynet:/config \
+    -v /apps/docker/derbynet/data:/var/lib/derbynet \
     -v /etc/localtime:/etc/localtime:ro \
+    -e TIMER_PASSWORD="" \
+    -e RACE_CREW_PASSWORD=murphy \
+    -e RACE_COORD_PASSWORD=doyourbest \
+    -e PHOTO_PASSWORD=flashbulb \
     -e UMASK=000 \
     -e PUID=0 \
     -e PGID=0 \
