@@ -18,5 +18,4 @@ php_sock=$(sed -n -e 's/^.*listen = //p' $php_path)
 sed -i "s+.*fastcgi_pass unix:/run/php.*+                fastcgi_pass unix:$php_sock;+" /etc/nginx/sites-enabled/default
 
 # fix a security flaw the allows anyone to see all of the php env variables and instead restrict to administrators
-sed -i "s+.*make_link_button('About', 'about.php', -1,.*+make_link_button('About', 'about.php', SET_UP_PERMISSION, 'other_button');
-+" /var/www/html/derbynet/index.php
+sed -i "s+.*make_link_button('About', 'about.php', -1,.*+make_link_button('About', 'about.php', SET_UP_PERMISSION, 'other_button');+" /var/www/html/derbynet/index.php
